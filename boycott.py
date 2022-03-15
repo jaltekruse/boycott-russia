@@ -24,6 +24,24 @@ class BlogSpider(scrapy.Spider):
                 find_cfo = re.search('CFO:([^,]*)\',', details, re.IGNORECASE)
                 if (find_cfo):
                     cfo = find_cfo.group(1).strip()
+                links = company.css('a')
+                if (links):
+                    website = links[0].css('::attr(href)').extract()[0]
+                    if (len(links.getall()) > 2):
+                        raise Exception(company_name + ' had more than 2 links')
+
+                    twitter = ''
+                    if (len(links.getall()) == 2):
+                        twitter = links[1].css('::attr(href)').extract()[0]
+
+                    if (twitter and (not ('twitter' in twitter))):
+                        raise Exception(company_name + ' second link was not for twitter ' + twitter)
+
+                    twitter_handle = ''
+                    if (twitter):
+                        find_handle = re.search('.*twitter.com/([^?]*).*', twitter, re.IGNORECASE)
+                        if (find_handle):
+                            twitter_handle = find_handle.group(1).strip()
                 yield {'company': company_name.replace('☑️', '').replace('❌', '').strip(),
                         'sector': sector,
                         'country' : country,
@@ -31,8 +49,10 @@ class BlogSpider(scrapy.Spider):
                         'cfo' : cfo,
                         'action': company_name.strip().endswith('☑️'),
                         'no_action': company_name.strip().endswith('❌'),
-                        'details': details,
-                        'links': company.css('a::attr(href)').extract()
+                        'website': website,
+                        'twitter': twitter,
+                        'twitter_handle': twitter_handle,
+                        'details': details
                         }
                         #            'details': company.css('.accordion-item__description ::text').get().strip(),}
 
