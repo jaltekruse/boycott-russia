@@ -27,11 +27,17 @@ class BlogSpider(scrapy.Spider):
                 links = company.css('a')
                 if (links):
                     website = links[0].css('::attr(href)').extract()[0]
+                    link_label = links[0].css('::text').extract()[0]
+                    if (link_label.strip().lower() != 'website'):
+                        raise Exception(company_name + ' fist link was not labeled website, it was labeled: ' + link_label)
                     if (len(links.getall()) > 2):
                         raise Exception(company_name + ' had more than 2 links')
 
                     twitter = ''
                     if (len(links.getall()) == 2):
+                        link_label = links[1].css('::text').extract()[0]
+                        if (link_label.strip().lower() != 'twitter'):
+                            raise Exception(company_name + ' fist link was not labeled twitter, it was labeled: ' + link_label)
                         twitter = links[1].css('::attr(href)').extract()[0]
 
                     if (twitter and (not ('twitter' in twitter))):
