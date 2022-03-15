@@ -27,6 +27,82 @@
       <meta name="twitter:card" content="summary"/>
       <meta name="description" content="" />
       <link rel="preconnect" href="https://images.squarespace-cdn.com">
+      <script type="text/javascript">
+
+                    function onLoad() {
+                        if (!String.prototype.includes) {
+                          String.prototype.includes = function(search, start) {
+                            'use strict';
+
+                            if (search instanceof RegExp) {
+                              throw TypeError('first argument must not be a RegExp');
+                            } 
+                            if (start === undefined) { start = 0; }
+                            return this.indexOf(search, start) !== -1;
+                          };
+                        }
+                        var setCurrentList = function() {
+                            allMatching.map(function(resource, index) {
+                                if (!resource["Link"]) {
+                                    return;
+                                }
+                                if (! (startsWith(resource["Link"], "http://") ||
+                                       startsWith(resource["Link"], "https://"))
+                                ) {
+                                    resource["Link"] = "http://" + resource["Link"];
+                                }
+                                html += "<a href=\"" + resource["Link"]
+                                    + "\" style=\"white-space: pre-wrap; white-space: -moz-pre-wrap; "
+				    + "white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;\"><h2>"
+                                    + resource["Company"] + "</h2></a>";
+                                if (resource["Category/Subject"] != undefined &&
+                                        resource["Category/Subject"].trim() != "") {
+                                    html += "<b>Category/Subject</b> &nbsp;&nbsp" +
+                                                resource["Category/Subject"] + "<br />";
+                                }
+                                if (resource["Grade/Age Group"] != undefined &&
+                                    resource["Grade/Age Group"].trim() != "") {
+                                    html += "<b>Grade/Age Group</b> &nbsp;&nbsp" +
+                                                resource["Grade/Age Group"] + "<br />";
+                                }
+                                html += resource["Description"] + "<br />";
+                                html += "<b>Free Service Offered</b> &nbsp;&nbsp" +
+                                    resource["Free Service Offered"] + "<br /><br />";
+                            });
+                            if (hitDisplayLimit) {
+                                html += "<h2>Showing top 400 results, to see others perform a more specific search.</h2>";
+                            }
+                            if (html == '') {
+                                html = "No matches found for search";
+                            }
+                            element.innerHTML = html;
+                        }
+                        if (window.allResources) {
+                            setCurrentList();
+                        } else {
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('get', 'AmazingEducationalResouces.csv');
+                            xhr.onload = function() {
+                                if (this.readyState === 4) {
+                                    if (this.status == 200) {
+                                    try {
+                                        window.allResources = Papa.parse(this.responseText, {header: true});
+                                        setCurrentList();
+                                    } catch (e) {
+                                        console.log(e);
+                                        alert("error reading resource list: " + this.responsetext);
+                                    }
+                                    } else {
+                                        alert(this.responsetext);
+                                    }
+                                } else {
+                                    // ignore other events for request still in progress
+                                }
+                            };
+                            xhr.send();
+                        }
+                    }
+      </script>
       <script type="text/javascript" src="//use.typekit.net/ik/_XsYCCm4-EjTB9dG3ncXepDyjmk-6GrR5qkD-BggUctfeTXIfFHN4UJLFRbh52jhWDjkwAF8web3whZcZ2ZRFDMtwh48jh4RwU7yMkG0jAFu-WsoShFGZAsude80ZkoRdhXCHKoyjamTiY8Djhy8ZYmC-Ao1Oco8if37OcBDOcu8OfG0Za4ySemcS1mTifuKScBDSkuyjaqDO1FUiABkZWF3jAF8OcFzdP37O1FUiABkZWF3jAF8ShFGZAsude80ZkoRdhXCjAFu-WsoShFGZAsude80ZkoRdhXCjAFu-WsoShFGZAsude80Zko0ZWbCjWw0dA9CjcNojhNXiY4uSaFTjPoTdcZzOeikjWg8Z14u-Wblj14ySawljAFowkoDSWmyScmDSeBRZPoRdhXCdeNRjAUGdaFXOYFUiABkZWF3jAF8ShFGZAsude80ZkoRdhXCiaiaOcBRiA8XpWFR-emqiAUTdcS0jhNlOYiaikoyjamTiY8Djhy8ZYmC-Ao1Oco8ifUaiaS0jWw0dA9CiaiaOc4zpAFziYskiWFD-AI0-AocdkUaiaS0Za4ySemcS1mTifuKScBDSkuyjaqDO1FUiABkZWF3jAF8OcFzdPUaiaS0SaBujW48SagyjhmDjhy8ZYmC-Ao1OcFzdPJeZWmkdagyH6qJ7WqbMg62JMJ7fbK7psMMeMb6MKG4fHyoIMMjgkMfH6GJttjgIMMj2PMfH6GJoJjgIMMj2KMfH6GJojjgIMMjIPMfqMYJrL5bg6.js"></script>
       <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
       <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600;1,700">
@@ -67,6 +143,7 @@
    <body
       id="collection-621fa7d3eb3c684d3996a2da"
       data-controller="SiteLoader, Flags"
+      onload="onLoad()"
       class="
       header-overlay-alignment-center header-width-full   tweak-fixed-header-style-basic tweak-blog-alternating-side-by-side-width-full tweak-blog-alternating-side-by-side-image-aspect-ratio-11-square tweak-blog-alternating-side-by-side-text-alignment-left tweak-blog-alternating-side-by-side-read-more-style-show tweak-blog-alternating-side-by-side-image-text-alignment-middle tweak-blog-alternating-side-by-side-delimiter-bullet tweak-blog-alternating-side-by-side-meta-position-top tweak-blog-alternating-side-by-side-primary-meta-categories tweak-blog-alternating-side-by-side-secondary-meta-date tweak-blog-alternating-side-by-side-excerpt-show tweak-blog-basic-grid-width-full tweak-blog-basic-grid-image-aspect-ratio-169-widescreen tweak-blog-basic-grid-text-alignment-left tweak-blog-basic-grid-delimiter-bullet tweak-blog-basic-grid-image-placement-above tweak-blog-basic-grid-read-more-style-show tweak-blog-basic-grid-primary-meta-categories tweak-blog-basic-grid-secondary-meta-none tweak-blog-basic-grid-excerpt-hide tweak-blog-item-width-custom tweak-blog-item-text-alignment-center tweak-blog-item-meta-position-above-title tweak-blog-item-show-categories    tweak-blog-item-delimiter-bullet tweak-blog-masonry-width-full tweak-blog-masonry-text-alignment-left tweak-blog-masonry-primary-meta-categories tweak-blog-masonry-secondary-meta-date tweak-blog-masonry-meta-position-top tweak-blog-masonry-read-more-style-show tweak-blog-masonry-delimiter-space tweak-blog-masonry-image-placement-above tweak-blog-masonry-excerpt-show tweak-blog-side-by-side-width-full tweak-blog-side-by-side-image-placement-left tweak-blog-side-by-side-image-aspect-ratio-11-square tweak-blog-side-by-side-primary-meta-categories tweak-blog-side-by-side-secondary-meta-date tweak-blog-side-by-side-meta-position-top tweak-blog-side-by-side-text-alignment-left tweak-blog-side-by-side-image-text-alignment-middle tweak-blog-side-by-side-read-more-style-show tweak-blog-side-by-side-delimiter-bullet tweak-blog-side-by-side-excerpt-show tweak-blog-single-column-width-full tweak-blog-single-column-text-alignment-center tweak-blog-single-column-image-placement-above tweak-blog-single-column-delimiter-bullet tweak-blog-single-column-read-more-style-show tweak-blog-single-column-primary-meta-categories tweak-blog-single-column-secondary-meta-date tweak-blog-single-column-meta-position-top tweak-blog-single-column-content-full-post tweak-events-stacked-width-full tweak-events-stacked-height-large  tweak-events-stacked-show-thumbnails tweak-events-stacked-thumbnail-size-32-standard tweak-events-stacked-date-style-with-text tweak-events-stacked-show-time tweak-events-stacked-show-location  tweak-events-stacked-show-excerpt  tweak-global-animations-enabled tweak-global-animations-complexity-level-detailed tweak-global-animations-animation-style-fade tweak-global-animations-animation-type-slide tweak-global-animations-animation-curve-ease tweak-portfolio-grid-basic-width-full tweak-portfolio-grid-basic-height-large tweak-portfolio-grid-basic-image-aspect-ratio-11-square tweak-portfolio-grid-basic-text-alignment-left tweak-portfolio-grid-basic-hover-effect-fade tweak-portfolio-grid-overlay-width-full tweak-portfolio-grid-overlay-height-large tweak-portfolio-grid-overlay-image-aspect-ratio-11-square tweak-portfolio-grid-overlay-text-placement-center tweak-portfolio-grid-overlay-show-text-after-hover tweak-portfolio-index-background-link-format-stacked tweak-portfolio-index-background-width-full tweak-portfolio-index-background-height-large  tweak-portfolio-index-background-vertical-alignment-middle tweak-portfolio-index-background-horizontal-alignment-center tweak-portfolio-index-background-delimiter-none tweak-portfolio-index-background-animation-type-fade tweak-portfolio-index-background-animation-duration-medium tweak-portfolio-hover-follow-layout-inline  tweak-portfolio-hover-follow-delimiter-forward-slash tweak-portfolio-hover-follow-animation-type-fade tweak-portfolio-hover-follow-animation-duration-medium tweak-portfolio-hover-static-layout-stacked  tweak-portfolio-hover-static-delimiter-forward-slash tweak-portfolio-hover-static-animation-type-scale-up tweak-portfolio-hover-static-animation-duration-medium tweak-product-basic-item-width-full tweak-product-basic-item-gallery-aspect-ratio-34-three-four-vertical tweak-product-basic-item-text-alignment-left tweak-product-basic-item-navigation-breadcrumbs tweak-product-basic-item-content-alignment-top tweak-product-basic-item-gallery-design-slideshow tweak-product-basic-item-gallery-placement-left tweak-product-basic-item-thumbnail-placement-side tweak-product-basic-item-click-action-none tweak-product-basic-item-hover-action-none tweak-product-basic-item-variant-picker-layout-dropdowns tweak-products-width-full tweak-products-image-aspect-ratio-11-square tweak-products-text-alignment-left tweak-products-price-show tweak-products-nested-category-type-top tweak-products-category-title tweak-products-header-text-alignment-middle tweak-products-breadcrumbs primary-button-style-solid primary-button-shape-square secondary-button-style-solid secondary-button-shape-square tertiary-button-style-solid tertiary-button-shape-square image-block-poster-text-alignment-left image-block-card-content-position-center image-block-card-text-alignment-left image-block-overlap-content-position-center image-block-overlap-text-alignment-left image-block-collage-content-position-center image-block-collage-text-alignment-left image-block-stack-text-alignment-left hide-opentable-icons opentable-style-dark tweak-product-quick-view-button-style-floating tweak-product-quick-view-button-position-bottom tweak-product-quick-view-lightbox-excerpt-display-truncate tweak-product-quick-view-lightbox-show-arrows tweak-product-quick-view-lightbox-show-close-button tweak-product-quick-view-lightbox-controls-weight-light native-currency-code-usd collection-type-page collection-621fa7d3eb3c684d3996a2da collection-layout-default mobile-style-available sqs-seven-one
       "
