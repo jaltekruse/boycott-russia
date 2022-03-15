@@ -55,9 +55,21 @@
                                     return;
                                 }
                                 if (resource['sector'] !== curr_sector) {
+                                    // terminate previous if we aren't on the first one
+                                    if (curr_sector != '') {
+                                        html += '</div></div></div></div></div></div></div></section>';
+                                    }
                                     curr_sector = resource['sector'];
                                     html +=
-                                        '<h3 style="white-space:pre-wrap;"><strong> ' + curr_sector + '</strong></h3>' +
+                                        '<section data-test="page-section" data-section-theme="bright" class="page-section layout-engine-section background-width--full-bleed section-height--small content-width--wide horizontal-alignment--center vertical-alignment--middle bright" data-section-id="6220d75648f46148800ec0a7" data-controller="SectionWrapperController" data-current-styles="{';
+                                    html +=
+              '&quot;imageOverlayOpacity&quot;: 0.15,&quot;backgroundWidth&quot;: &quot;background-width--full-bleed&quot;,&quot;sectionHeight&quot;: &quot;section-height--small&quot;,&quot;customSectionHeight&quot;: 10,&quot;horizontalAlignment&quot;: &quot;horizontal-alignment--center&quot;,&quot;verticalAlignment&quot;: &quot;vertical-alignment--middle&quot;,&quot;contentWidth&quot;: &quot;content-width--wide&quot;,&quot;customContentWidth&quot;: 50,&quot;backgroundColor&quot;: &quot;&quot;,&quot;sectionTheme&quot;: &quot;bright&quot;,&quot;sectionAnimation&quot;: &quot;none&quot;,&quot;backgroundMode&quot;: &quot;image&quot;';                                
+                                    html += 
+                                    '}" data-animation="none"><div class="section-background"></div><div class="content-wrapper"><div class="content"><div class="sqs-layout sqs-grid-12 columns-12" data-type="page-section" id="page-section-6220d75648f46148800ec0a7"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-5b1258bc52eef8a7ae84"><div class="sqs-block-content"><h3 style="white-space:pre-wrap"><strong>';
+                                    html += curr_sector;
+                                    html += 
+                                        '</strong></h3></div></div><div class="sqs-block accordion-block sqs-block-accordion" data-block-type="69" id="block-12bed49eb5ef4efcf500"><div class="sqs-block-content">';
+                                    html += 
                                         '<ul class="accordion-items-container" data-should-allow-multiple-open-items="" ' +
                                         ' data-is-divider-enabled="true" data-is-first-divider-visible="true" data-is-last-divider-visible="true" ' +
                                         ' data-is-expanded-first-item="" data-accordion-title-alignment="left" data-accordion-description-alignment="left" ' +
