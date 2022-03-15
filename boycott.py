@@ -8,7 +8,9 @@ class BlogSpider(scrapy.Spider):
         for title in response.css('.accordion-items-container'):
             for company in response.css('.accordion-item'):
                 #print(company)
-                yield {'company': company.css('.accordion-item__title ::text').get().strip(),
+                yield {'company': company.css('.accordion-item__title ::text').get().replace('☑️', '').replace('❌', '').strip(),
+                        'action': company.css('.accordion-item__title ::text').get().strip().endswith('☑️'),
+                        'no_action': company.css('.accordion-item__title ::text').get().strip().endswith('❌'),
                         'details': company.css('.accordion-item__description p ::text').extract(),
                         'links': company.css('a::attr(href)').extract()
                         }
