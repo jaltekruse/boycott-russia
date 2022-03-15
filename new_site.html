@@ -27,7 +27,12 @@
       <meta name="twitter:card" content="summary"/>
       <meta name="description" content="" />
       <link rel="preconnect" href="https://images.squarespace-cdn.com">
+      <script type="text/javascript" src="papaparse.min.js"></script>
       <script type="text/javascript">
+                    function startsWith(str, maybePrefix) {
+                        //https://stackoverflow.com/a/4579228
+                        return str.lastIndexOf(maybePrefix, 0) === 0
+                    }
 
                     function onLoad() {
                         if (!String.prototype.includes) {
@@ -42,15 +47,58 @@
                           };
                         }
                         var setCurrentList = function() {
-                            allMatching.map(function(resource, index) {
-                                if (!resource["Link"]) {
+                            var html = '';
+                            var element = document.getElementById("companies_by_sector");
+                            var curr_sector = '';
+                            window.allResources.data.map(function(resource, index) {
+                                if (!resource["company"]) {
                                     return;
                                 }
-                                if (! (startsWith(resource["Link"], "http://") ||
-                                       startsWith(resource["Link"], "https://"))
-                                ) {
-                                    resource["Link"] = "http://" + resource["Link"];
+                                if (resource['sector'] !== curr_sector) {
+                                    curr_sector = resource['sector'];
+                                    html +=
+                                        '<h3 style="white-space:pre-wrap;"><strong> ' + curr_sector + '</strong></h3>' +
+                                        '<ul class="accordion-items-container" data-should-allow-multiple-open-items="" ' +
+                                        ' data-is-divider-enabled="true" data-is-first-divider-visible="true" data-is-last-divider-visible="true" ' +
+                                        ' data-is-expanded-first-item="" data-accordion-title-alignment="left" data-accordion-description-alignment="left" ' +
+                                        ' data-accordion-description-placement="left" data-accordion-icon-placement="left" > ';
                                 }
+                                if (! (startsWith(resource["website"], "http://") ||
+                                       startsWith(resource["website"], "https://"))
+                                ) {
+                                    resource["website"] = "http://" + resource["website"];
+                                }
+                                html +=
+                                    '<li class="accordion-item"><div class="accordion-divider accordion-divider--top" aria-hidden="true" style=" height: 1px; opacity: 1; " ></div><h4 class=" accordion-item__title-wrapper " role="heading" aria-level="3" ><button class="accordion-item__click-target" aria-expanded="false" style=" padding-top: 15px; padding-bottom: 15px; padding-left: 0px; padding-right: 0px; " ><span class="accordion-item__title" style=" padding-left: 24px; " >';
+                                html += resource['company'];
+                                html += resource['action'] ? '☑️' : '❌';
+                                html +=
+                                    '</span><div class="accordion-icon-container" data-is-open="false" aria-hidden="true" style=" height: 24px; width: 24px; " ><div class="arrow-container"><div class="arrow" style=" border-width: 1px; " ></div></div></div></button></h4><div class="accordion-item__dropdown" role="region"><div class=" accordion-item__description " style=" padding-top: 0px; padding-bottom: 30px; padding-left: 0px; padding-right: 0px; min-width: 70%; max-width: 300px; " >';
+
+                                var print_attr = function(attr_name) {
+                                    if (resource[attr_name]) {
+                                        html +=
+                                            '<p class="" style="white-space:pre-wrap;">';
+                                        html += attr_name + ": " + resource[attr_name] + '</p>';
+                                    }
+                                }
+                                print_attr('country');
+                                print_attr('ceo');
+                                print_attr('cfo');
+
+                                if (resource['website']) {
+                                    html +=
+                                        '<p class="" style="white-space:pre-wrap;">';
+                                    html += '<a href="' + resource.website + '">Website</a></p>';
+                                }
+
+                                if (resource['twitter']) {
+                                    html +=
+                                        '<p class="" style="white-space:pre-wrap;">';
+                                    html += '<a href="' + resource.twitter + '">Twitter</a></p>';
+                                }
+                                html += '</div></div><div class="accordion-divider" aria-hidden="true" style=" height: 1px; opacity: 1; " ></div></li>';
+                                /*
                                 html += "<a href=\"" + resource["Link"]
                                     + "\" style=\"white-space: pre-wrap; white-space: -moz-pre-wrap; "
 				    + "white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;\"><h2>"
@@ -68,10 +116,8 @@
                                 html += resource["Description"] + "<br />";
                                 html += "<b>Free Service Offered</b> &nbsp;&nbsp" +
                                     resource["Free Service Offered"] + "<br /><br />";
+                                    */
                             });
-                            if (hitDisplayLimit) {
-                                html += "<h2>Showing top 400 results, to see others perform a more specific search.</h2>";
-                            }
                             if (html == '') {
                                 html = "No matches found for search";
                             }
@@ -81,12 +127,13 @@
                             setCurrentList();
                         } else {
                             var xhr = new XMLHttpRequest();
-                            xhr.open('get', 'AmazingEducationalResouces.csv');
+                            xhr.open('get', 'data.csv');
                             xhr.onload = function() {
                                 if (this.readyState === 4) {
                                     if (this.status == 200) {
                                     try {
                                         window.allResources = Papa.parse(this.responseText, {header: true});
+                                        console.log(window.allResources);
                                         setCurrentList();
                                     } catch (e) {
                                         console.log(e);
