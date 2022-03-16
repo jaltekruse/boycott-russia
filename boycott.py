@@ -11,19 +11,21 @@ class BlogSpider(scrapy.Spider):
             if (sector):
                 sector = sector[0].replace('Companies in the','').replace('Companies in','').strip()
             for company in section.css('.accordion-item'):
-                #print(company)
                 company_name = company.css('.accordion-item__title ::text').get()
                 details = company.css('.accordion-item__description p ::text').extract()
-                details = str(details)
-                find_country = re.search('Country:([^,]*)\',', details, re.IGNORECASE)
-                if (find_country):
-                    country = find_country.group(1).strip()
-                find_ceo = re.search('CEO:([^,]*)\',', details, re.IGNORECASE)
-                if (find_ceo):
-                    ceo = find_ceo.group(1).strip()
-                find_cfo = re.search('CFO:([^,]*)\',', details, re.IGNORECASE)
-                if (find_cfo):
-                    cfo = find_cfo.group(1).strip()
+                company_info = {}
+                for detail in details:
+                    find_labeled_val = re.search('^([^:]*):([^,]*)', detail.strip(), re.IGNORECASE)
+                    if (find_labeled_val):
+                        label = find_labeled_val.group(1).strip().lower()
+                        if (label in ['country', 'ceo','cfo']):
+                            company_info[label] = find_labeled_val.group(2).strip()
+                        else:
+                            company_info['other'] = detail.strip()
+
+                if (not 'other' in company_info):
+                    company_info['other'] = '-'
+
                 links = company.css('a')
                 if (links):
                     website = links[0].css('::attr(href)').extract()[0]
@@ -48,18 +50,16 @@ class BlogSpider(scrapy.Spider):
                         find_handle = re.search('.*twitter.com/([^?]*).*', twitter, re.IGNORECASE)
                         if (find_handle):
                             twitter_handle = find_handle.group(1).strip()
-                yield {'company': company_name.replace('☑️', '').replace('❌', '').strip(),
+                company_info.update({'company': company_name.replace('☑️', '').replace('❌', '').strip(),
                         'sector': sector,
-                        'country' : country,
-                        'ceo' : ceo,
-                        'cfo' : cfo,
                         'action': company_name.strip().endswith('☑️'),
                         'no_action': company_name.strip().endswith('❌'),
                         'website': website,
                         'twitter': twitter,
                         'twitter_handle': twitter_handle,
                         'details': details
-                        }
+                        })
+                yield company_info
                         #            'details': company.css('.accordion-item__description ::text').get().strip(),}
 
                         #'details' : company.xpath("""
