@@ -105,6 +105,9 @@
                                 print_attr('country', capitalizeFirstLetter);
                                 print_attr('ceo', function(s) { return s.toUpperCase()});
                                 print_attr('cfo', function(s) { return s.toUpperCase()});
+                                if (resource['other'] !== '-') {
+                                        html += '<p class="" style="white-space:pre-wrap;">' + resource['other'] + '</p>';
+                                }
 
                                 if (resource['website']) {
                                     html +=
