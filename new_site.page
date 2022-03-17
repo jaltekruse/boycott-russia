@@ -175,7 +175,14 @@ License: MIT
 
 
                     var onSectorClick = function(sector_line) {
-                        target = sector_line.querySelector('.arrow');
+                        //target = sector_line.querySelector('.arrow');
+                        var companiesInSector = sector_line.parentNode.querySelector('.accordion-block');
+                        if (companiesInSector.style.display == 'block'){
+                          sector_line.parentNode.querySelector('.accordion-block').style.display='none';
+                        } else {
+                          sector_line.parentNode.querySelector('.accordion-block').style.display='block';
+                        }
+                        /*
                         if (target.className.includes('open')){
                           target.className = 'arrow';  
                           sector_line.parentNode.querySelector('.accordion-block').style.display='none';
@@ -183,6 +190,7 @@ License: MIT
                           target.className = 'arrow open';
                           sector_line.parentNode.querySelector('.accordion-block').style.display='block';
                         }
+                        */
                     };
 
                     function onLoad() {
@@ -217,9 +225,9 @@ License: MIT
                                     html +=
               '&quot;imageOverlayOpacity&quot;: 0.15,&quot;backgroundWidth&quot;: &quot;background-width--full-bleed&quot;,&quot;sectionHeight&quot;: &quot;section-height--small&quot;,&quot;customSectionHeight&quot;: 10,&quot;horizontalAlignment&quot;: &quot;horizontal-alignment--center&quot;,&quot;verticalAlignment&quot;: &quot;vertical-alignment--middle&quot;,&quot;contentWidth&quot;: &quot;content-width--wide&quot;,&quot;customContentWidth&quot;: 50,&quot;backgroundColor&quot;: &quot;&quot;,&quot;sectionTheme&quot;: &quot;bright&quot;,&quot;sectionAnimation&quot;: &quot;none&quot;,&quot;backgroundMode&quot;: &quot;image&quot;';                                
                                     html += 
-                                    '}" data-animation="none"><div class="section-background"></div><div class="content-wrapper" style="padding-top:10px;padding-bottom:10px"><div class="content"><div class="sqs-layout sqs-grid-12 columns-12" data-type="page-section" id="page-section-6220d75648f46148800ec0a7"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block html-block sqs-block-html" onclick="onSectorClick(this)" data-block-type="2" id="block-5b1258bc52eef8a7ae84"><div class="sqs-block-content"><h3 style="white-space:pre-wrap"><div class="sqs-block-accordion" style="display:inline-block;height:30px;width:30px"><div class="arrow-container "><div class="arrow" style="width:25px;height:25px;border-width: 3px;">';
+                                    '}" data-animation="none"><div class="section-background"></div><div class="content-wrapper" style="padding-top:10px;padding-bottom:10px"><div class="content"><div class="sqs-layout sqs-grid-12 columns-12" data-type="page-section" id="page-section-6220d75648f46148800ec0a7"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block html-block sqs-block-html" onclick="onSectorClick(this)" data-block-type="2" id="block-5b1258bc52eef8a7ae84"><div class="sqs-block-content"><h3 style="white-space:pre-wrap">';
                                     html += 
-                                        '</div></div></div><strong>&nbsp;&nbsp;';
+                                        '<strong>&nbsp;&nbsp;';
                                     html += '<span class="unselectable">' + curr_sector + '</span>';
                                     html += 
                                         '</strong></h3></div></div><div class="sqs-block accordion-block sqs-block-accordion" style="display:none" data-block-type="69" id="block-12bed49eb5ef4efcf500"><div class="sqs-block-content">';
