@@ -92,7 +92,7 @@
                                     '}" data-animation="none"><div class="section-background"></div><div class="content-wrapper" style="padding-top:10px;padding-bottom:10px"><div class="content"><div class="sqs-layout sqs-grid-12 columns-12" data-type="page-section" id="page-section-6220d75648f46148800ec0a7"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block html-block sqs-block-html" onclick="onSectorClick(this)" data-block-type="2" id="block-5b1258bc52eef8a7ae84"><div class="sqs-block-content"><h3 style="white-space:pre-wrap"><div class="sqs-block-accordion" style="display:inline-block;height:30px;width:30px"><div class="arrow-container "><div class="arrow" style="width:25px;height:25px;border-width: 3px;">';
                                     html += 
                                         '</div></div></div><strong>&nbsp;&nbsp;';
-                                    html += curr_sector;
+                                    html += '<span class="unselectable">' + curr_sector + '</span>';
                                     html += 
                                         '</strong></h3></div></div><div class="sqs-block accordion-block sqs-block-accordion" style="display:none" data-block-type="69" id="block-12bed49eb5ef4efcf500"><div class="sqs-block-content">';
                                     html += 
@@ -211,6 +211,15 @@
 
           .site-wrapper, .sqs-catalog {
             font-family: europa, sans-serif;
+          }
+
+          .unselectable {
+              -webkit-touch-callout: none;
+              -webkit-user-select: none;
+              -khtml-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
           }
       </style>
       <script>Static.COOKIE_BANNER_CAPABLE = true;</script>
@@ -835,6 +844,59 @@
                </section>
                <div class="inner" id="companies_by_sector" style="min-height:400px;background-color:#fbd52b">
                </div>
+               <section
+                  data-test="page-section"
+                  data-section-theme="bright"
+                  style="min-height:200px"
+                  class='page-section
+                  layout-engine-section
+                  background-width--full-bleed
+                  section-height--small
+                  content-width--wide
+                  horizontal-alignment--center
+                  vertical-alignment--middle
+                  bright'
+                  data-section-id="621fa7d3eb3c684d3996a2dc"
+                  data-controller="SectionWrapperController"
+                  data-current-styles="{
+                  &quot;imageOverlayOpacity&quot;: 0.15,
+                  &quot;backgroundWidth&quot;: &quot;background-width--full-bleed&quot;,
+                  &quot;sectionHeight&quot;: &quot;section-height--small&quot;,
+                  &quot;customSectionHeight&quot;: 10,
+                  &quot;horizontalAlignment&quot;: &quot;horizontal-alignment--center&quot;,
+                  &quot;verticalAlignment&quot;: &quot;vertical-alignment--middle&quot;,
+                  &quot;contentWidth&quot;: &quot;content-width--wide&quot;,
+                  &quot;customContentWidth&quot;: 50,
+                  &quot;backgroundColor&quot;: &quot;&quot;,
+                  &quot;sectionTheme&quot;: &quot;bright&quot;,
+                  &quot;sectionAnimation&quot;: &quot;none&quot;,
+                  &quot;backgroundMode&quot;: &quot;image&quot;
+                  }"
+                  data-animation="none"
+                  >
+                  <div class="section-background">
+                  </div>
+                  <div
+                     class="content-wrapper"
+                     style='padding-bottom:0px'
+                     >
+                     <div
+                        class="content"
+                        >
+                        <div class="sqs-layout sqs-grid-12 columns-12" data-type="page-section" id="page-section-621fa7d3eb3c684d3996a2dc">
+                           <div class="row sqs-row">
+                              <div class="col sqs-col-12 span-12">
+                                 <div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-bd3329441c0e0b31d887">
+                                    <div class="sqs-block-content">
+                               <h3 style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.596121s;" class="preSlide slideIn">Tweet us <a href="https://twitter.com/Boycott_RU">@Boycott_RU</a> or write us at <a href="mailto:contact@boycottrussia.info">contact@boycottrussia.info</a> with any updates.</h3>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
             </article>
          </main>
          <script type="text/javascript">
