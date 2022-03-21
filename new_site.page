@@ -36,6 +36,9 @@ License: MIT
               -ms-user-select: none;
               user-select: none;
           }
+
+.sqs-block-boycott-accordion .boycott-accordion-items-container{margin:0;padding:0;list-style-type:none}.sqs-block-boycott-accordion .boycott-accordion-item{padding:0;margin:0;position:relative}.sqs-block-boycott-accordion .boycott-accordion-divider{color:#000;background-color:currentColor}.sqs-block-boycott-accordion .boycott-accordion-items-container:not([data-is-last-divider-visible="true"]) .boycott-accordion-item:last-of-type .boycott-accordion-divider{display:none}.sqs-block-boycott-accordion .boycott-accordion-item__title-wrapper{margin:0;padding:0}.sqs-block-boycott-accordion .boycott-accordion-item__title{flex:1}.sqs-block-boycott-accordion [data-boycott-accordion-title-alignment="center"] .boycott-accordion-item__title{text-align:center}.sqs-block-boycott-accordion [data-boycott-accordion-title-alignment="right"] .boycott-accordion-item__title{text-align:right}.sqs-block-boycott-accordion .boycott-accordion-item__click-target{box-sizing:border-box;width:100%;background:transparent;border:none;display:flex;justify-content:space-between;align-items:center;text-align:left;-webkit-appearance:none;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;text-transform:inherit;letter-spacing:inherit;color:inherit;touch-action:manipulation}.sqs-block-boycott-accordion [data-boycott-accordion-icon-placement="left"] .boycott-accordion-item__click-target{flex-direction:row-reverse}.sqs-block-boycott-accordion .boycott-accordion-item__click-target>*{margin:0}.sqs-block-boycott-accordion .boycott-accordion-item__dropdown{box-sizing:border-box;display:none;overflow:hidden}.sqs-block-boycott-accordion .boycott-accordion-item__dropdown--pre-open{position:absolute;left:0;top:0;display:block;visibility:hidden;width:100%;transition:none;height:auto}.sqs-block-boycott-accordion .boycott-accordion-item__dropdown--open{display:block}.sqs-block-boycott-accordion .boycott-accordion-item__description{box-sizing:border-box}.sqs-block-boycott-accordion [data-boycott-accordion-description-placement="center"] .boycott-accordion-item__description{margin-left:auto;margin-right:auto}.sqs-block-boycott-accordion [data-boycott-accordion-description-placement="right"] .boycott-accordion-item__description{margin-left:auto}.sqs-block-boycott-accordion [data-boycott-accordion-description-alignment="center"] .boycott-accordion-item__description{text-align:center}.sqs-block-boycott-accordion [data-boycott-accordion-description-alignment="right"] .boycott-accordion-item__description{text-align:right}.sqs-block-boycott-accordion .boycott-accordion-item__title>:first-of-type,.sqs-block-boycott-accordion .boycott-accordion-item__description>:first-of-type{margin-top:0}.sqs-block-boycott-accordion .boycott-accordion-item__title>:last-of-type,.sqs-block-boycott-accordion .boycott-accordion-item__description>:last-of-type{margin-bottom:0}.sqs-block-boycott-accordion .boycott-accordion-icon-container{position:relative;color:#000}.sqs-block-boycott-accordion .boycott-accordion-icon-container>*{position:absolute;width:100%;height:100%;left:0;top:0;display:flex;justify-content:center;align-items:center}.sqs-block-boycott-accordion .plus__horizontal-line,.sqs-block-boycott-accordion .plus__vertical-line{display:block;width:100%;background-color:currentColor;transition:transform .2s;position:absolute}.sqs-block-boycott-accordion .plus__vertical-line{transform:rotate(90deg)}.sqs-block-boycott-accordion .boycott-accordion-item[data-is-open="true"] .plus__vertical-line{transform:rotate(0deg)}.sqs-block-boycott-accordion .arrow-container{transition:transform .2s}.sqs-block-boycott-accordion .boycott-accordion-item[data-is-open="true"] .arrow-container{transform:rotate(-180deg)}.sqs-block-boycott-accordion .arrow{border-color:currentColor;border-style:solid;border-top:none;border-left:none;box-sizing:border-box;transform:translatey(-25%) rotate(45deg);width:70.71067%;height:70.71067%}@media (prefers-reduced-motion:reduce){.sqs-block-boycott-accordion .boycott-accordion-item__dropdown,.sqs-block-boycott-accordion .plus__vertical-line,.sqs-block-boycott-accordion .arrow-container{transition:none !important}}
+
       </style>
          <main id="page" class="container" role="main">
             <article class="sections" data-page-sections="621fa7d3eb3c684d3996a2d9" id="sections">
@@ -163,32 +166,37 @@ License: MIT
                     }
 
                     var onArrowClick = function(company_line) {
-                        target = company_line.querySelector('.arrow');
+                        target = company_line.querySelector('.arrow-boycott');
+                        console.log(company_line);
+                        console.log(target);
+                        console.log(target.className.includes('open'));
                         if (target.className.includes('open')){
-                          target.className = 'arrow';  
-                          company_line.parentNode.parentNode.querySelector('.accordion-item__description').style.display='block';
+                          target.className = 'arrow-boycott open';
+                          company_line.parentNode.parentNode.querySelector('.boycott-accordion-item__description').style.display='none';
                         } else{
-                          target.className = 'arrow open';
-                          company_line.parentNode.parentNode.querySelector('.accordion-item__description').style.display='none';
+                          target.className = 'arrow-boycott';
+                          console.log(company_line.parentNode.parentNode);
+                          console.log(company_line.parentNode.parentNode.querySelector('.boycott-accordion-item__description'));
+                          company_line.parentNode.parentNode.querySelector('.boycott-accordion-item__description').style.display='block';
                         }
                     };
 
 
                     var onSectorClick = function(sector_line) {
-                        //target = sector_line.querySelector('.arrow');
-                        var companiesInSector = sector_line.parentNode.querySelector('.accordion-block');
+                        //target = sector_line.querySelector('.arrow-boycott');
+                        var companiesInSector = sector_line.parentNode.querySelector('.boycott-accordion-block');
                         if (companiesInSector.style.display == 'block'){
-                          sector_line.parentNode.querySelector('.accordion-block').style.display='none';
+                          sector_line.parentNode.querySelector('.boycott-accordion-block').style.display='none';
                         } else {
-                          sector_line.parentNode.querySelector('.accordion-block').style.display='block';
+                          sector_line.parentNode.querySelector('.boycott-accordion-block').style.display='block';
                         }
                         /*
                         if (target.className.includes('open')){
-                          target.className = 'arrow';  
-                          sector_line.parentNode.querySelector('.accordion-block').style.display='none';
+                          target.className = 'arrow-boycott';  
+                          sector_line.parentNode.querySelector('.boycott-accordion-block').style.display='none';
                         } else {
-                          target.className = 'arrow open';
-                          sector_line.parentNode.querySelector('.accordion-block').style.display='block';
+                          target.className = 'arrow-boycott open';
+                          sector_line.parentNode.querySelector('.boycott-accordion-block').style.display='block';
                         }
                         */
                     };
@@ -230,12 +238,12 @@ License: MIT
                                         '<strong>&nbsp;&nbsp;';
                                     html += '<span class="unselectable">' + curr_sector + '</span>';
                                     html += 
-                                        '</strong></h3></div></div><div class="sqs-block accordion-block sqs-block-accordion" style="display:none" data-block-type="69" id="block-12bed49eb5ef4efcf500"><div class="sqs-block-content">';
+                                        '</strong></h3></div></div><div class="sqs-block boycott-accordion-block sqs-block-boycott-accordion" style="display:none" data-block-type="69" id="block-12bed49eb5ef4efcf500"><div class="sqs-block-content">';
                                     html += 
-                                        '<ul class="accordion-items-container" data-should-allow-multiple-open-items="" ' +
+                                        '<ul class="boycott-accordion-items-container" data-should-allow-multiple-open-items="" ' +
                                         ' data-is-divider-enabled="true" data-is-first-divider-visible="true" data-is-last-divider-visible="true" ' +
-                                        ' data-is-expanded-first-item="" data-accordion-title-alignment="left" data-accordion-description-alignment="left" ' +
-                                        ' data-accordion-description-placement="left" data-accordion-icon-placement="left" > ';
+                                        ' data-is-expanded-first-item="" data-boycott-accordion-title-alignment="left" data-boycott-accordion-description-alignment="left" ' +
+                                        ' data-boycott-accordion-description-placement="left" data-boycott-accordion-icon-placement="left" > ';
                                 }
                                 if (! (startsWith(resource["website"], "http://") ||
                                        startsWith(resource["website"], "https://"))
@@ -243,17 +251,17 @@ License: MIT
                                     resource["website"] = "http://" + resource["website"];
                                 }
                                 /*
-                                    <li class="accordion-item" data-is-open="true"><div class="accordion-divider accordion-divider--top" aria-hidden="true" style="height: 1px; opacity: 1;"></div><h4 class="accordion-item__title-wrapper preFade fadeIn" role="heading" aria-level="3" style="transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0152486s;"><button class="accor aria-expanded="true" style="padding-top: 15px; padding-bottom: 15px; padding-left: 0px; padding-right: 0px;" id="button-block-yui_3_17_2_1_1646242317599_1799-0" aria-controls="dropdown-block-yui_3_17_2_1_1646242317599_1799-0"><span class="accordion-item__title" style="padding-left: 24px;">
+                                    <li class="boycott-accordion-item" data-is-open="true"><div class="boycott-accordion-divider boycott-accordion-divider--top" aria-hidden="true" style="height: 1px; opacity: 1;"></div><h4 class="boycott-accordion-item__title-wrapper preFade fadeIn" role="heading" aria-level="3" style="transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0152486s;"><button class="accor aria-expanded="true" style="padding-top: 15px; padding-bottom: 15px; padding-left: 0px; padding-right: 0px;" id="button-block-yui_3_17_2_1_1646242317599_1799-0" aria-controls="dropdown-block-yui_3_17_2_1_1646242317599_1799-0"><span class="boycott-accordion-item__title" style="padding-left: 24px;">
                 Chevron Corporation ❌
-            </span><div class="accordion-icon-container" data-is-open="false" aria-hidden="true" style="height: 24px; width: 24px;"><div class="arrow-container"><div class="arrow" style="border-width: 3px;"></div></div></div></button></h4><div class="accordion-item__dropdown accordion-item__dropdown--open" role="region" id="dropdown-block-yui_3_17_2_1_1646242317599_1799-0" aria-labelledby="button-block-yui_3_17_2_1_1646242317599_1799-0" style=""><div class="accordion-item__description" style="padding-top: 0px; padding-bottom: 15px; padding-left: 0px; padding-right: 0px; min-width: 70%; max-width: 300px;"><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0159116s;">Country: US</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0165746s;">CEO: Michael K. (Mike) Wirth</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0172376s;">CFO: Eimear P. Bonner</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0179006s;"><a href="https://www.chevron.com">Website</a></p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0185635s;"><a href="https://twitter.com/Chevron">Twitter</a></p></div></div><div class="accordion-divider" aria-hidden="true" style="height: 1px; opacity: 1;"></div></li>
+            </span><div class="boycott-accordion-icon-container" data-is-open="false" aria-hidden="true" style="height: 24px; width: 24px;"><div class="arrow-container"><div class="arrow-boycott" style="border-width: 3px;"></div></div></div></button></h4><div class="boycott-accordion-item__dropdown boycott-accordion-item__dropdown--open" role="region" id="dropdown-block-yui_3_17_2_1_1646242317599_1799-0" aria-labelledby="button-block-yui_3_17_2_1_1646242317599_1799-0" style=""><div class="boycott-accordion-item__description" style="padding-top: 0px; padding-bottom: 15px; padding-left: 0px; padding-right: 0px; min-width: 70%; max-width: 300px;"><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0159116s;">Country: US</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0165746s;">CEO: Michael K. (Mike) Wirth</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0172376s;">CFO: Eimear P. Bonner</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0179006s;"><a href="https://www.chevron.com">Website</a></p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0185635s;"><a href="https://twitter.com/Chevron">Twitter</a></p></div></div><div class="boycott-accordion-divider" aria-hidden="true" style="height: 1px; opacity: 1;"></div></li>
                                 */
                                 html +=
-                                    '<li class="accordion-item" data-is-open="true"><h4 class="accordion-item__title-wrapper preFade fadeIn" role="heading" aria-level="3" style="transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0152486s;"><button class="accordion-item__click-target" onclick="onArrowClick(this)" aria-expanded="false" style="padding-top:15px;padding-bottom:15px;padding-left:0;padding-right:0" id="button-block-yui_3_17_2_1_1646242317599_1799-0" aria-controls="dropdown-block-yui_3_17_2_1_1646242317599_1799-0"><span class="accordion-item__title" style="padding-left:24px">'; 
+                                    '<li class="boycott-accordion-item" data-is-open="true"><h4 class="boycott-accordion-item__title-wrapper preFade fadeIn" role="heading" aria-level="3" style="transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0152486s;"><button class="boycott-accordion-item__click-target" onclick="onArrowClick(this)" aria-expanded="false" style="padding-top:15px;padding-bottom:15px;padding-left:0;padding-right:0" id="button-block-yui_3_17_2_1_1646242317599_1799-0" aria-controls="dropdown-block-yui_3_17_2_1_1646242317599_1799-0"><span class="boycott-accordion-item__title" style="padding-left:24px">'; 
                                 html += resource['company'];
                                 html += resource['action'].toLowerCase() == 'true' ? '☑️' : '❌';
                                 html +=
-                                    '</span><div class="accordion-icon-container" data-is-open="true" aria-hidden="true" style="height: 24px; width: 24px;"><div class="arrow-container"><div class="arrow-boycott open" style="border-width: 3px;"></div></div></div></button></h4><div style="display:none;" role="region" id="dropdown-block-yui_3_17_2_1_1646242317599_1799-0" aria-labelledby="button-block-yui_3_17_2_1_1646242317599_1799-0" style="">';
-                                html += '<div class="accordion-item__description" style="padding-top: 0px; padding-bottom: 15px; padding-left: 0px; padding-right: 0px; min-width: 70%; max-width: 300px;">';
+                                    '</span><div class="boycott-accordion-icon-container" data-is-open="true" aria-hidden="true" style="height: 24px; width: 24px;"><div class="arrow-container"><div class="arrow-boycott" style="border-width: 3px;"></div></div></div></button></h4><div style="display:none;" role="region" id="dropdown-block-yui_3_17_2_1_1646242317599_1799-0" aria-labelledby="button-block-yui_3_17_2_1_1646242317599_1799-0" style="">';
+                                html += '<div class="boycott-accordion-item__description" style="padding-top: 0px; padding-bottom: 15px; padding-left: 0px; padding-right: 0px; min-width: 70%; max-width: 300px;">';
                                 function capitalizeFirstLetter(string) {
                                     return string.charAt(0).toUpperCase() + string.slice(1);
                                 }
@@ -282,7 +290,7 @@ License: MIT
                                         '<p class="" style="white-space:pre-wrap;">';
                                     html += '<a href="' + resource.twitter + '">Twitter</a></p>';
                                 }
-                                html += '</div></div><div class="accordion-divider" aria-hidden="true" style=" height: 1px; opacity: 1; " ></div></li>';
+                                html += '</div></div><div class="boycott-accordion-divider" aria-hidden="true" style=" height: 1px; opacity: 1; " ></div></li>';
                             });
                             if (html == '') {
                                 html = "No matches found for search";
