@@ -172,19 +172,12 @@ License: MIT
 
                     var onArrowClick = function(company_line) {
                         target = company_line.querySelector('.arrow-boycott');
-                        console.log(company_line);
-                        console.log(target);
-                        console.log(target.className.includes('open'));
                         if (target.className.includes('open')){
-                          console.log('already open@#$!#$!@#@!#$');
                           target.className = 'arrow-boycott';
                           company_line.parentNode.parentNode.querySelector('.boycott-accordion-item__description')
                               .parentNode.style.display='none';
                         } else{
-                          console.log('currently closed $$$$$$$$$$$');
                           target.className = 'arrow-boycott open';
-                          console.log(company_line.parentNode.parentNode);
-                          console.log(company_line.parentNode.parentNode.querySelector('.boycott-accordion-item__description'));
                           company_line.parentNode.parentNode.querySelector('.boycott-accordion-item__description')
                               .parentNode.style.display='block';
                         }
@@ -192,14 +185,7 @@ License: MIT
 
 
                     var onSectorClick = function(sector_line) {
-                        //target = sector_line.querySelector('.arrow-boycott');
-                        var companiesInSector = sector_line.parentNode.querySelector('.boycott-accordion-block');
-                        if (companiesInSector.style.display == 'block'){
-                          sector_line.parentNode.querySelector('.boycott-accordion-block').style.display='none';
-                        } else {
-                          sector_line.parentNode.querySelector('.boycott-accordion-block').style.display='block';
-                        }
-                        /*
+                        target = sector_line.querySelector('.arrow-boycott');
                         if (target.className.includes('open')){
                           target.className = 'arrow-boycott';  
                           sector_line.parentNode.querySelector('.boycott-accordion-block').style.display='none';
@@ -207,7 +193,7 @@ License: MIT
                           target.className = 'arrow-boycott open';
                           sector_line.parentNode.querySelector('.boycott-accordion-block').style.display='block';
                         }
-                        */
+
                     };
 
                     function onLoad() {
@@ -242,7 +228,7 @@ License: MIT
                                     html +=
               '&quot;imageOverlayOpacity&quot;: 0.15,&quot;backgroundWidth&quot;: &quot;background-width--full-bleed&quot;,&quot;sectionHeight&quot;: &quot;section-height--small&quot;,&quot;customSectionHeight&quot;: 10,&quot;horizontalAlignment&quot;: &quot;horizontal-alignment--center&quot;,&quot;verticalAlignment&quot;: &quot;vertical-alignment--middle&quot;,&quot;contentWidth&quot;: &quot;content-width--wide&quot;,&quot;customContentWidth&quot;: 50,&quot;backgroundColor&quot;: &quot;&quot;,&quot;sectionTheme&quot;: &quot;bright&quot;,&quot;sectionAnimation&quot;: &quot;none&quot;,&quot;backgroundMode&quot;: &quot;image&quot;';                                
                                     html += 
-                                    '}" data-animation="none"><div class="section-background"></div><div class="content-wrapper" style="padding-top:10px;padding-bottom:10px"><div class="content"><div class="sqs-layout sqs-grid-12 columns-12" data-type="page-section" id="page-section-6220d75648f46148800ec0a7"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block html-block sqs-block-html" onclick="onSectorClick(this)" data-block-type="2" id="block-5b1258bc52eef8a7ae84"><div class="sqs-block-content"><h3 style="white-space:pre-wrap">';
+                                    '}" data-animation="none"><div class="section-background"></div><div class="content-wrapper" style="padding-top:10px;padding-bottom:10px"><div class="content"><div class="sqs-layout sqs-grid-12 columns-12" data-type="page-section" id="page-section-6220d75648f46148800ec0a7"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="sqs-block html-block sqs-block-html" onclick="onSectorClick(this)" data-block-type="2" id="block-5b1258bc52eef8a7ae84"><div class="sqs-block-content"><h3 style="white-space:pre-wrap"><div class="boycott-accordion-icon-container" data-is-open="true" aria-hidden="true" style="height: 24px; width: 24px;display:inline-block"><div class="arrow-container" style="height: 24px; width: 24px;"><div class="arrow-boycott" style="border-width: 3px;"></div></div></div>';
                                     html += 
                                         '<strong>&nbsp;&nbsp;';
                                     html += '<span class="unselectable">' + curr_sector + '</span>';
@@ -259,11 +245,6 @@ License: MIT
                                 ) {
                                     resource["website"] = "http://" + resource["website"];
                                 }
-                                /*
-                                    <li class="boycott-accordion-item" data-is-open="true"><div class="boycott-accordion-divider boycott-accordion-divider--top" aria-hidden="true" style="height: 1px; opacity: 1;"></div><h4 class="boycott-accordion-item__title-wrapper preFade fadeIn" role="heading" aria-level="3" style="transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0152486s;"><button class="accor aria-expanded="true" style="padding-top: 15px; padding-bottom: 15px; padding-left: 0px; padding-right: 0px;" id="button-block-yui_3_17_2_1_1646242317599_1799-0" aria-controls="dropdown-block-yui_3_17_2_1_1646242317599_1799-0"><span class="boycott-accordion-item__title" style="padding-left: 24px;">
-                Chevron Corporation ❌
-            </span><div class="boycott-accordion-icon-container" data-is-open="false" aria-hidden="true" style="height: 24px; width: 24px;"><div class="arrow-container"><div class="arrow-boycott" style="border-width: 3px;"></div></div></div></button></h4><div class="boycott-accordion-item__dropdown boycott-accordion-item__dropdown--open" role="region" id="dropdown-block-yui_3_17_2_1_1646242317599_1799-0" aria-labelledby="button-block-yui_3_17_2_1_1646242317599_1799-0" style=""><div class="boycott-accordion-item__description" style="padding-top: 0px; padding-bottom: 15px; padding-left: 0px; padding-right: 0px; min-width: 70%; max-width: 300px;"><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0159116s;">Country: US</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0165746s;">CEO: Michael K. (Mike) Wirth</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0172376s;">CFO: Eimear P. Bonner</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0179006s;"><a href="https://www.chevron.com">Website</a></p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0185635s;"><a href="https://twitter.com/Chevron">Twitter</a></p></div></div><div class="boycott-accordion-divider" aria-hidden="true" style="height: 1px; opacity: 1;"></div></li>
-                                */
                                 html +=
                                     '<li class="boycott-accordion-item" data-is-open="true"><h4 class="boycott-accordion-item__title-wrapper preFade fadeIn" role="heading" aria-level="3" style="transition-timing-function: ease; transition-duration: 0.8s; transition-delay: 0.0152486s;"><button class="boycott-accordion-item__click-target" onclick="onArrowClick(this)" aria-expanded="false" style="padding-top:15px;padding-bottom:15px;padding-left:0;padding-right:0" id="button-block-yui_3_17_2_1_1646242317599_1799-0" aria-controls="dropdown-block-yui_3_17_2_1_1646242317599_1799-0"><span class="boycott-accordion-item__title" style="padding-left:24px">'; 
                                 html += resource['company'];
