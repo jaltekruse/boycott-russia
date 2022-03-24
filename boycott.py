@@ -53,7 +53,6 @@ class BlogSpider(scrapy.Spider):
                 company_info.update({'company': company_name.replace('☑️', '').replace('❌', '').strip(),
                         'sector': sector,
                         'action': company_name.strip().endswith('☑️'),
-                        'no_action': company_name.strip().endswith('❌'),
                         'website': website,
                         'twitter': twitter,
                         'twitter_handle': twitter_handle
