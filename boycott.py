@@ -56,8 +56,7 @@ class BlogSpider(scrapy.Spider):
                         'no_action': company_name.strip().endswith('❌'),
                         'website': website,
                         'twitter': twitter,
-                        'twitter_handle': twitter_handle,
-                        'details': details
+                        'twitter_handle': twitter_handle
                         })
                 yield company_info
                         #            'details': company.css('.accordion-item__description ::text').get().strip(),}
